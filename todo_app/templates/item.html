@@ -12,9 +12,9 @@
           <input type="text" name="title" id="title" value="{{ToDo.title}}" required>
       </div>
       <div>
-          <input type="radio" name="status" id="status" value="Not Started" {% if ToDo.Status == value %} checked="checked"{% endif %}/>Not Started
-          <input type="radio" name="status" id="status" value="Started" {% if ToDo.Status == value %} checked="checked"{% endif %}/>Started
-          <input type="radio" name="status" id="status" value="Done" {% if ToDo.Status == value %} checked="checked"{% endif %}/>Done
+          <input type="radio" name="status" id="status" value="Not Started" {% if not_started %} checked = "checked" {% endif %}/>Not Started
+          <input type="radio" name="status" id="status" value="Started" {% if started %} checked = "checked" {% endif %}/>Started
+          <input type="radio" name="status" id="status" value="Done" {% if done %} checked = "checked" {% endif %}/>Done
       </div>
       <div>
         <input type="submit" value="Submit!">

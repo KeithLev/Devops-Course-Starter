@@ -12,7 +12,11 @@ app.config.from_object(Config())
 
 @app.route('/')
 def index():
-    return render_template('index.html', ToDos = get_items())
+    items = get_items()
+
+    items = sorted(items, key=lambda items : items['status'], reverse=True)
+
+    return render_template('index.html', ToDos = items)
 
 @app.route('/submit', methods=['POST','GET'])
 def submit():
@@ -21,11 +25,24 @@ def submit():
 
 @app.route('/todo/<id>')
 def view_item(id):
-    return render_template('item.html', ToDo = get_item(id))
+    item = get_item(id)
+    not_started = False
+    started = False
+    done = False
+
+    if item['status'] == "Not Started":
+        not_started = True
+    if item['status'] == "Started":
+        started = True
+    if item['status'] == "Done":
+        done = True     
+    return render_template('item.html', ToDo = get_item(id), not_started  = not_started, started = started, done = done)
 
 @app.route('/submit_item/<id>', methods=['POST', 'GET'])
 def submit_item(id):
-    item = {'id': id, 'status' : request.form.get('status'), 'title' : request.form.get('title')} 
+    item = get_item(id)
+    item['title'] = request.form.get('title')
+    item['status'] = request.form.get('status')
     save_item(item)
     return redirect('/')
 
