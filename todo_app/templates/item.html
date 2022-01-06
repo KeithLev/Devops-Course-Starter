@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}To Do Item{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">To-Do App</h1>
+    <p class="lead">Just another to-do app.</p>
+  </div>
+
+  <form action="/submit_item/{{ToDo.id}}" method="post">
+      <div>
+          <input type="text" name="title" id="title" value="{{ToDo.title}}" required>
+      </div>
+      <div>
+          <input type="radio" name="status" id="status" value="Not Started" {% if ToDo.Status == value %} checked="checked"{% endif %}/>Not Started
+          <input type="radio" name="status" id="status" value="Started" {% if ToDo.Status == value %} checked="checked"{% endif %}/>Started
+          <input type="radio" name="status" id="status" value="Done" {% if ToDo.Status == value %} checked="checked"{% endif %}/>Done
+      </div>
+      <div>
+        <input type="submit" value="Submit!">
+      </div>
+  </form>
+
+
+
+{% endblock %}
