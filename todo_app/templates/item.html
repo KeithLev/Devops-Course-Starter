@@ -7,14 +7,14 @@
     <p class="lead">Just another to-do app.</p>
   </div>
 
-  <form action="/submit_item/{{ToDo.id}}" method="post">
+  <form action="/update_item/{{to_do.id}}" method="post">
       <div>
-          <input type="text" name="title" id="title" value="{{ToDo.title}}" required>
+          <input type="text" name="title" id="title" value="{{to_do.title}}" required>
       </div>
       <div>
-          <input type="radio" name="status" id="status" value="Not Started" {% if not_started %} checked = "checked" {% endif %}/>Not Started
-          <input type="radio" name="status" id="status" value="Started" {% if started %} checked = "checked" {% endif %}/>Started
-          <input type="radio" name="status" id="status" value="Done" {% if done %} checked = "checked" {% endif %}/>Done
+          <input type="radio" name="status" value="Not Started" {% if not_started %} checked = "checked" {% endif %}/>Not Started
+          <input type="radio" name="status" value="Started" {% if started %} checked = "checked" {% endif %}/>Started
+          <input type="radio" name="status" value="Done" {% if done %} checked = "checked" {% endif %}/>Done
       </div>
       <div>
         <input type="submit" value="Submit!">
