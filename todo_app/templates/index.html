@@ -12,7 +12,25 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
+        {% for to_do in to_dos %}
+        <li>
+        <h1><a href="/to_do/{{to_do.id}}">{{to_do.id}}</a> {{to_do.title}}</h1>
+        <p>{{to_do.status}}</p>
+        </li>
+
+        {% endfor %}
+
+        
+
+
       </ul>
     </div>
   </div>
+  <form action="/add_item" method="post">
+    <div>
+      <input type="text" name="title" id="title" required>
+      <input type="submit" value="Submit!">
+    </div>
+  </form>
+
 {% endblock %}
