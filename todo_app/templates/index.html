@@ -12,10 +12,26 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
-        {% for to_do in to_dos %}
+        <h1>To Do</h1>
+        {% for to_do in lists[0].json() %}
         <li>
-        <h1><a href="/to_do/{{to_do.id}}">{{to_do.id}}</a> {{to_do.title}}</h1>
-        <p>{{to_do.status}}</p>
+        <p><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></p>
+        </li>
+
+        {% endfor %}
+
+        <h1>Doing</h1>
+        {% for to_do in lists[1].json() %}
+        <li>
+        <p><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></p>
+        </li>
+
+        {% endfor %}
+
+        <h1>Done</h1>
+        {% for to_do in lists[2].json() %}
+        <li>
+        <p><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></p>
         </li>
 
         {% endfor %}

@@ -9,12 +9,12 @@
 
   <form action="/update_item/{{to_do.id}}" method="post">
       <div>
-          <input type="text" name="title" id="title" value="{{to_do.title}}" required>
+          <input type="text" name="title" id="title" value="{{to_do.name}}" required>
       </div>
       <div>
-          <input type="radio" name="status" value="Not Started" {% if not_started %} checked = "checked" {% endif %}/>Not Started
-          <input type="radio" name="status" value="Started" {% if started %} checked = "checked" {% endif %}/>Started
-          <input type="radio" name="status" value="Done" {% if done %} checked = "checked" {% endif %}/>Done
+          <input type="radio" name="status" value="Not Started" {% if to_do.idList == '6200e316e238394a0c305e27' %} checked = "checked" {% endif %}/>Not Started
+          <input type="radio" name="status" value="Started" {% if to_do.idList == '6200e316e238394a0c305e28' %} checked = "checked" {% endif %}/>Started
+          <input type="radio" name="status" value="Done" {% if to_do.idList == '6200e316e238394a0c305e29' %} checked = "checked" {% endif %}/>Done
       </div>
       <div>
         <input type="submit" value="Submit!">
