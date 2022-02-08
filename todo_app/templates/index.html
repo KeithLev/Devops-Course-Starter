@@ -2,29 +2,75 @@
 {% block title %}To-Do App{% endblock %}
 
 {% block content %}
+<header>
+  <style type="text/css">
+    .collumn {
+      float: left;
+      width: 33%;
+    }
+  </style>
+</header>
 
-  <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
-  </div>
+<div class="jumbotron">
+  <h1 class="display-4">To-Do App</h1>
+  <p class="lead">Just another to-do app.</p>
+</div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="collumn">
+        <h2>Items</h2>
+      </div>
+      <div class="collumn">
+        <form action="/add_item" method="post">
+          <div>
+            <input type="text" name="title" id="title" value="Add new item" required>
+            <input type="submit" value="Submit!">
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <!-- List the todo items here -->
+      <div class="collumn">
+        <h2>Not Started</h2>
         {% for to_do in lists.values()%}
-        <li><h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>
-        <p> {{to_do.status}}</p></li>
+        {% if to_do.status == 'Not Started'%}
+        <ul class="list-group mb-4">
+          <li>
+            <h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>
+          </li>
+        </ul>
+        {% endif %}
         {% endfor %}
-      </ul>
+      </div>
+      <div class="collumn">
+        <h2>Started</h2>
+        {% for to_do in lists.values()%}
+        {% if to_do.status == 'Started'%}
+        <ul class="list-group mb-4">
+          <li>
+            <h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>
+          </li>
+        </ul>
+        {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="collumn">
+        <h2>Done</h2>
+        {% for to_do in lists.values()%}
+        {% if to_do.status == 'Done'%}
+        <ul class="list-group mb-4">
+          <li>
+            <h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>
+          </li>
+        </ul>
+        {% endif %}
+        {% endfor %}
+      </div>
     </div>
   </div>
-  <form action="/add_item" method="post">
-    <div>
-      <input type="text" name="title" id="title" required>
-      <input type="submit" value="Submit!">
-    </div>
-  </form>
 
-{% endblock %}
+  {% endblock %}
