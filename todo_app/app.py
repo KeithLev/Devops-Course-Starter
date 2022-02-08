@@ -2,7 +2,6 @@ from flask import Flask, render_template,request
 from werkzeug.utils import redirect
 from todo_app import to_do_lists
 from todo_app.to_do_lists import to_do_list
-from todo_app.data.session_items import get_items, add_item, get_item, save_item
 from todo_app.flask_config import Config
 app = Flask(__name__)
 app.config.from_object(Config())

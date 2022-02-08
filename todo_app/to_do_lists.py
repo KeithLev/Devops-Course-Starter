@@ -1,7 +1,6 @@
-from lib2to3.pgen2 import token
-from turtle import done
 import requests
 import os
+from todo_app.Card import Card
 
 class to_do_list():
 
@@ -22,6 +21,11 @@ class to_do_list():
         self.doing = requests.get(self.trello_url+trello_list+self.doing_list_id+'/'+self.trello_cards,payload)
         self.done = requests.get(self.trello_url+trello_list+self.done_list_id+'/'+self.trello_cards,payload)
         self.lists = [self.to_do, self.doing, self.done]
+
+        cards = {}
+        for x in self.to_do:
+            card = Card(x[0],x[1])
+            cards.update({card.id:card})
         return self.lists
 
     def add_card(self, title):
