@@ -47,3 +47,8 @@ class to_do_list():
         payload = self.auth
         payload.update({'name': name, 'idList': list_id})
         requests.put(self.trello_url+self.trello_cards+id,payload)
+
+    def delete_item(self, id):
+        payload = self.auth
+        payload.update({'id':id})
+        requests.delete(self.trello_url+self.trello_cards+id, params=payload)

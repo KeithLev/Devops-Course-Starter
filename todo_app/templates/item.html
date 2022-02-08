@@ -3,23 +3,32 @@
 
 {% block content %}
 <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
-  </div>
+  <h1 class="display-4">To-Do App</h1>
+  <p class="lead">Just another to-do app.</p>
+</div>
 
-  <form action="/update_item/{{to_do.id}}" method="post">
-      <div>
-          <input type="text" name="title" id="title" value="{{to_do.name}}" required>
-      </div>
-      <div>
-          <input type="radio" name="status" value="Not Started" {% if to_do.idList == '6200e316e238394a0c305e27' %} checked = "checked" {% endif %}/>Not Started
-          <input type="radio" name="status" value="Started" {% if to_do.idList == '6200e316e238394a0c305e28' %} checked = "checked" {% endif %}/>Started
-          <input type="radio" name="status" value="Done" {% if to_do.idList == '6200e316e238394a0c305e29' %} checked = "checked" {% endif %}/>Done
-      </div>
-      <div>
-        <input type="submit" value="Submit!">
-      </div>
+<form action="/update_item/{{to_do.id}}" method="post">
+  <div>
+    <input type="text" name="title" id="title" value="{{to_do.name}}" required>
+  </div>
+  <div>
+    <input type="radio" name="status" value="Not Started" {% if to_do.idList=='6200e316e238394a0c305e27' %}
+      checked="checked" {% endif %} />Not Started
+    <input type="radio" name="status" value="Started" {% if to_do.idList=='6200e316e238394a0c305e28' %}
+      checked="checked" {% endif %} />Started
+    <input type="radio" name="status" value="Done" {% if to_do.idList=='6200e316e238394a0c305e29' %} checked="checked"
+      {% endif %} />Done
+  </div>
+  <div>
+    <input type="submit" value="Submit!">
+  </div>
+</form>
+<div>
+  <form action="/delete_item/{{to_do.id}}" method="post">
+    <input type="submit" value="Delete" />
   </form>
+</div>
+
 
 
 

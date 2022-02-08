@@ -31,4 +31,9 @@ def update_item(id):
     to_do_list.update_card(id,request.form.get('title'),request.form.get('status'))
     return redirect('/')
 
+@app.route('/delete_item/<id>', methods=['POST'])
+def delete_item(id):
+    to_do_list.delete_item(id)
+    return redirect('/')
+
     
