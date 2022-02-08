@@ -2,6 +2,7 @@
 {% block title %}To-Do App{% endblock %}
 
 {% block content %}
+
   <div class="jumbotron">
     <h1 class="display-4">To-Do App</h1>
     <p class="lead">Just another to-do app.</p>
@@ -12,33 +13,10 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
-        <h1>To Do</h1>
-        {% for to_do in lists[0].json() %}
-        <li>
-        <p><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></p>
-        </li>
-
+        {% for to_do in lists.values()%}
+        <li><h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>
+        <p> {{to_do.status}}</p></li>
         {% endfor %}
-
-        <h1>Doing</h1>
-        {% for to_do in lists[1].json() %}
-        <li>
-        <p><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></p>
-        </li>
-
-        {% endfor %}
-
-        <h1>Done</h1>
-        {% for to_do in lists[2].json() %}
-        <li>
-        <p><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></p>
-        </li>
-
-        {% endfor %}
-
-        
-
-
       </ul>
     </div>
   </div>

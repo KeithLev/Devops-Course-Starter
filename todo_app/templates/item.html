@@ -12,11 +12,11 @@
     <input type="text" name="title" id="title" value="{{to_do.name}}" required>
   </div>
   <div>
-    <input type="radio" name="status" value="Not Started" {% if to_do.idList=='6200e316e238394a0c305e27' %}
+    <input type="radio" name="status" value="Not Started" {% if to_do.status=='Not Started' %}
       checked="checked" {% endif %} />Not Started
-    <input type="radio" name="status" value="Started" {% if to_do.idList=='6200e316e238394a0c305e28' %}
+    <input type="radio" name="status" value="Started" {% if to_do.status=='Started' %}
       checked="checked" {% endif %} />Started
-    <input type="radio" name="status" value="Done" {% if to_do.idList=='6200e316e238394a0c305e29' %} checked="checked"
+    <input type="radio" name="status" value="Done" {% if to_do.status=='Done' %} checked="checked"
       {% endif %} />Done
   </div>
   <div>

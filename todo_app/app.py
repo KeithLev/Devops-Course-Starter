@@ -1,13 +1,12 @@
 from flask import Flask, render_template,request
 from werkzeug.utils import redirect
-from todo_app import to_do_lists
-from todo_app.to_do_lists import to_do_list
+from todo_app.data.to_do_list import to_do_list
 from todo_app.flask_config import Config
 app = Flask(__name__)
 app.config.from_object(Config())
 
 
-to_do_list = to_do_lists.to_do_list()
+to_do_list = to_do_list()
 
 @app.route('/')
 def index():   
