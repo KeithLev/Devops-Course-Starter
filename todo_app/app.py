@@ -17,8 +17,8 @@ def index():
     return render_template('index.html', lists = to_do_list.return_list())
 
 @app.route('/add_item', methods=['POST'])
-def submit():
-    add_item(request.form.get('title'))
+def add_item():
+    to_do_list.add_card(request.form.get('title'))
     return redirect('/')
 
 @app.route('/to_do/<id>')
@@ -27,7 +27,7 @@ def view_item(id):
     return render_template('item.html', to_do = to_do)
 
 @app.route('/update_item/<id>', methods=['PUT','POST'])
-def submit_item(id):
+def update_item(id):
     to_do_list.update_card(id,request.form.get('title'),request.form.get('status'))
     return redirect('/')
 

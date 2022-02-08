@@ -12,11 +12,6 @@ class to_do_list():
         self.doing_list_id = '6200e316e238394a0c305e28'
         self.done_list_id = '6200e316e238394a0c305e29'
         self.trello_cards = 'cards/'
-        
-
-
-        
-
 
     def return_list(self):
         
@@ -28,6 +23,12 @@ class to_do_list():
         self.done = requests.get(self.trello_url+trello_list+self.done_list_id+'/'+self.trello_cards,payload)
         self.lists = [self.to_do, self.doing, self.done]
         return self.lists
+
+    def add_card(self, title):
+        payload = self.auth
+        payload.update({'idList':self.todo_list_id,'name':title})
+        requests.post(self.trello_url+self.trello_cards,payload)
+
 
 
     def return_card(self, id):
