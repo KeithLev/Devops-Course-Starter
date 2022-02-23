@@ -1,5 +1,4 @@
 import requests
-import os
 from todo_app.data.Card import Card
 from todo_app.data.trello_urls import trello_urls
 
