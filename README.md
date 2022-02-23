@@ -32,6 +32,15 @@ $ cp .env.template .env  # (first time only)
 
 The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
 
+Set enviroment variables as follows:
+App_TOKEN - app token
+APP_KEY - app key
+NOT_STARTED_LIST_ID - list id for not started list
+STARTED_LIST_ID - list id for started list
+DONE_LIST_ID - list id for done list
+
+
+
 ## Running the App
 
 Once the all dependencies have been installed, start the Flask app in development mode within the Poetry environment by running:
