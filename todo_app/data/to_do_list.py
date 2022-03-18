@@ -30,7 +30,7 @@ class to_do_list():
         return self.cards
 
     def add_card(self, title):
-        payload = trello_urls.auth
+        payload = trello_urls.auth.copy()
         payload.update({'idList':trello_urls.not_started_list_id,'name':title})
         item = requests.post(trello_urls.base_url+trello_urls.cards,payload).json()
         card = Card(item['id'],title,'Not Started')
@@ -48,6 +48,6 @@ class to_do_list():
 
     def delete_item(self, id):
         self.cards.pop(id)
-        payload = trello_urls.auth
+        payload = trello_urls.auth.copy()
         payload.update({'id':id})
         requests.delete(trello_urls.base_url+trello_urls.cards+id, params=payload)
