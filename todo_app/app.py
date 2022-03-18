@@ -1,44 +1,37 @@
 from flask import Flask, render_template,request
 from werkzeug.utils import redirect
-from todo_app.data.session_items import get_items, add_item, get_item, save_item
-
+from todo_app.data.to_do_list import to_do_list
 from todo_app.flask_config import Config
-
 app = Flask(__name__)
 app.config.from_object(Config())
 
 
+to_do_list = to_do_list()
+
 @app.route('/')
-def index():
-    items = get_items()
+def index():   
+    lists = to_do_list.return_list()
 
-    items = sorted(items, key=lambda items : items['status'], reverse=True)
-
-    return render_template('index.html', to_dos = items)
+    return render_template('index.html', lists = to_do_list.return_list())
 
 @app.route('/add_item', methods=['POST'])
-def submit():
-    add_item(request.form.get('title'))
+def add_item():
+    to_do_list.add_card(request.form.get('title'))
     return redirect('/')
 
 @app.route('/to_do/<id>')
 def view_item(id):
-    item = get_item(id)
-    not_started = False
-    started = False
-    done = False
+    to_do = to_do_list.return_card(id)
+    return render_template('item.html', to_do = to_do)
 
-    not_started = item['status'] == "Not Started"
-    started = item['status'] == "Started"
-    done = item['status'] == "Done" 
-    return render_template('item.html', to_do = get_item(id), not_started  = not_started, started = started, done = done)
+@app.route('/update_item/<id>', methods=['PUT','POST'])
+def update_item(id):
+    to_do_list.update_card(id,request.form.get('title'),request.form.get('status'))
+    return redirect('/')
 
-@app.route('/update_item/<id>', methods=['POST', 'GET'])
-def submit_item(id):
-    item = get_item(id)
-    item['title'] = request.form.get('title')
-    item['status'] = request.form.get('status')
-    save_item(item)
+@app.route('/delete_item/<id>', methods=['POST'])
+def delete_item(id):
+    to_do_list.delete_item(id)
     return redirect('/')
 
     

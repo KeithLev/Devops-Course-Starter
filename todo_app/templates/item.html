@@ -3,23 +3,34 @@
 
 {% block content %}
 <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
-  </div>
+  <h1 class="display-4">To-Do App</h1>
+  <p class="lead">Just another to-do app.</p>
+</div>
 
-  <form action="/update_item/{{to_do.id}}" method="post">
-      <div>
-          <input type="text" name="title" id="title" value="{{to_do.title}}" required>
-      </div>
-      <div>
-          <input type="radio" name="status" value="Not Started" {% if not_started %} checked = "checked" {% endif %}/>Not Started
-          <input type="radio" name="status" value="Started" {% if started %} checked = "checked" {% endif %}/>Started
-          <input type="radio" name="status" value="Done" {% if done %} checked = "checked" {% endif %}/>Done
-      </div>
-      <div>
-        <input type="submit" value="Submit!">
-      </div>
+<form action="/update_item/{{to_do.id}}" method="post">
+  <div>
+    <input type="text" name="title" id="title" value="{{to_do.name}}" required>
+  </div>
+  <div>
+    <input type="radio" name="status" value="Not Started" {% if to_do.status=='Not Started' %}
+      checked="checked" {% endif %} />Not Started
+    <input type="radio" name="status" value="Started" {% if to_do.status=='Started' %}
+      checked="checked" {% endif %} />Started
+    <input type="radio" name="status" value="Done" {% if to_do.status=='Done' %} checked="checked"
+      {% endif %} />Done
+  </div>
+  <div>
+    <p></p>
+    <input type="submit" value="Submit!">
+  </div>
+</form>
+<div>
+  <p></p>
+  <form action="/delete_item/{{to_do.id}}" method="post">
+    <input type="submit" value="Delete" />
   </form>
+</div>
+
 
 
 
