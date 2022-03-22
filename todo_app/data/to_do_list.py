@@ -1,16 +1,16 @@
 import requests
 from todo_app.data.Card import Card
-from todo_app.data.trello_urls import trello_urls
 
 
 class to_do_list():
 
-    def __init__(self):
-        payload = trello_urls.auth
+    def __init__(self, trello_urls):
+        self.trello_urls = trello_urls
+        payload = self.trello_urls.auth
         payload.update({'fields':['id','name']})
-        self.not_started = requests.get(trello_urls.base_url+trello_urls.lists+trello_urls.not_started_list_id+'/'+trello_urls.cards,payload).json()
-        self.started = requests.get(trello_urls.base_url+trello_urls.lists+trello_urls.started_list_id+'/'+trello_urls.cards,payload).json()
-        self.done = requests.get(trello_urls.base_url+trello_urls.lists+trello_urls.done_list_id+'/'+trello_urls.cards,payload).json()
+        self.not_started = requests.get(self.trello_urls.base_url+self.trello_urls.lists+self.trello_urls.not_started_list_id+'/'+self.trello_urls.cards,payload).json()
+        self.started = requests.get(url = self.trello_urls.base_url+self.trello_urls.lists+self.trello_urls.started_list_id+'/'+self.trello_urls.cards, params = payload).json()
+        self.done = requests.get(url=self.trello_urls.base_url+self.trello_urls.lists+self.trello_urls.done_list_id+'/'+self.trello_urls.cards, params = payload).json()
 
         self.cards = {}
         for item in self.not_started:
@@ -27,12 +27,12 @@ class to_do_list():
         
 
     def return_list(self):
-        return self.cards
+        return self.cards.values()
 
     def add_card(self, title):
-        payload = trello_urls.auth.copy()
-        payload.update({'idList':trello_urls.not_started_list_id,'name':title})
-        item = requests.post(trello_urls.base_url+trello_urls.cards,payload).json()
+        payload = self.trello_urls.auth.copy()
+        payload.update({'idList':self.trello_urls.not_started_list_id,'name':title})
+        item = requests.post(self.trello_urls.base_url+self.trello_urls.cards,payload).json()
         card = Card(item['id'],title,'Not Started')
         self.cards.update({card.id:card})
 
@@ -48,6 +48,6 @@ class to_do_list():
 
     def delete_item(self, id):
         self.cards.pop(id)
-        payload = trello_urls.auth.copy()
+        payload = self.trello_urls.auth.copy()
         payload.update({'id':id})
-        requests.delete(trello_urls.base_url+trello_urls.cards+id, params=payload)
+        requests.delete(self.trello_urls.base_url+self.trello_urls.cards+id, params=payload)
