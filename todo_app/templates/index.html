@@ -56,13 +56,29 @@
 
       <div class="collumn">
         <h2>Done</h2>
-        {% for to_do in lists.done_items%}
-        <ul class="list-group mb-4">
-          <li>
-            <h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>
-          </li>
-        </ul>
-        {% endfor %}
+        {% if lists.done_items|length < 5 %}
+          {% for to_do in lists.done_items%}
+          <ul class="list-group mb-4">
+            <li>
+              <h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>
+            </li>
+          </ul>
+          {% endfor %}
+        {%endif%}
+
+        {% if lists.done_items|length >= 5 %}
+          {% for to_do in lists.recently_done_items %}
+          <ul class="list-group mb-4">
+            <li>
+              <h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>
+            </li>
+          </ul>
+          {% endfor %}
+        {% endif %}
+
+
+
+
       </div>
     </div>
   </div>

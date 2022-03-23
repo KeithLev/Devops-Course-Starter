@@ -2,14 +2,13 @@ from datetime import datetime
 from todo_app.data.trello_urls import TrelloUrls
 import requests
 class Card:
-    def __init__(self,id, name, status):
+    def __init__(self,id, name, status, lastActivity = datetime.today()):
         self.trello_urls = TrelloUrls()
         self.id = id
         self.name = name
         self.status = status
+        self.lastActivity = lastActivity
         
-        
-    
     @property
     def name(self):
         return self._name  
@@ -20,6 +19,15 @@ class Card:
         payload = self.trello_urls.auth.copy()
         payload.update({'name':name})
         requests.post(self.trello_urls.base_url+self.trello_urls.cards+self.id,payload)
+    
+    @property
+    def lastActivity(self):
+        return self._lastActivity
+    
+    @lastActivity.setter
+    def lastActivity(self, lastAcitivity):
+        self._lastActivity = lastAcitivity
+        
     
     @property
     def status(self):

@@ -1,3 +1,4 @@
+from datetime import datetime
 import requests
 from todo_app.data.Card import Card
 
@@ -7,7 +8,7 @@ class to_do_list():
     def __init__(self, trello_urls):
         self.trello_urls = trello_urls
         payload = self.trello_urls.auth
-        payload.update({'fields':['id','name']})
+        payload.update({'fields':['id','name','dateLastActivity']})
         self.not_started = requests.get(self.trello_urls.base_url+self.trello_urls.lists+self.trello_urls.not_started_list_id+'/'+self.trello_urls.cards,payload).json()
         self.started = requests.get(url = self.trello_urls.base_url+self.trello_urls.lists+self.trello_urls.started_list_id+'/'+self.trello_urls.cards, params = payload).json()
         self.done = requests.get(url=self.trello_urls.base_url+self.trello_urls.lists+self.trello_urls.done_list_id+'/'+self.trello_urls.cards, params = payload).json()
@@ -22,7 +23,7 @@ class to_do_list():
             self.cards.update({card.id:card})
         
         for item in self.done:
-            card = Card(item['id'], item['name'],'Done')
+            card = Card(item['id'], item['name'],'Done', lastActivity=datetime.fromisoformat(item['dateLastActivity'][:-1] + '+00:00'))
             self.cards.update({card.id:card})
         
 
