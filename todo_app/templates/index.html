@@ -35,40 +35,50 @@
       <!-- List the todo items here -->
       <div class="collumn">
         <h2>Not Started</h2>
-        {% for to_do in lists.values()%}
-        {% if to_do.status == 'Not Started'%}
+        {% for to_do in lists.to_do_items%}
         <ul class="list-group mb-4">
           <li>
             <h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>
           </li>
         </ul>
-        {% endif %}
         {% endfor %}
       </div>
       <div class="collumn">
         <h2>Started</h2>
-        {% for to_do in lists.values()%}
-        {% if to_do.status == 'Started'%}
+        {% for to_do in lists.doing_items%}
         <ul class="list-group mb-4">
           <li>
             <h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>
           </li>
         </ul>
-        {% endif %}
         {% endfor %}
       </div>
 
       <div class="collumn">
         <h2>Done</h2>
-        {% for to_do in lists.values()%}
-        {% if to_do.status == 'Done'%}
-        <ul class="list-group mb-4">
-          <li>
-            <h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>
-          </li>
-        </ul>
+        {% if not lists.five_or_more_done_items() %}
+          {% for to_do in lists.done_items%}
+          <ul class="list-group mb-4">
+            <li>
+              <h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>
+            </li>
+          </ul>
+          {% endfor %}
+        {%endif%}
+
+        {% if lists.five_or_more_done_items() %}
+          {% for to_do in lists.recently_done_items %}
+          <ul class="list-group mb-4">
+            <li>
+              <h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>
+            </li>
+          </ul>
+          {% endfor %}
         {% endif %}
-        {% endfor %}
+
+
+
+
       </div>
     </div>
   </div>
