@@ -1,4 +1,5 @@
 from datetime import datetime
+from operator import truediv
 
 
 class ViewModel:
@@ -41,3 +42,8 @@ class ViewModel:
             if item.status == "Done" and item.lastActivity.date() == today.date() :
                 recently_done_items.append(item)
         return recently_done_items
+    
+    def five_or_more_done_items(self):
+        if len(self.done_items) >=5:
+            return True
+        return False

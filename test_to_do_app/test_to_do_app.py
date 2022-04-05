@@ -1,5 +1,4 @@
 from datetime import datetime,timedelta
-from itertools import count
 import pytest
 from todo_app.data.Card import Card
 from todo_app.data.item_view_model import ViewModel
@@ -57,5 +56,4 @@ def test_recently_done_items(setup_recently_done):
     done_items = view_model.recently_done_items
     #assert
     assert len(done_items) == 3
-    assert done_items[0].status == "Done"
-
+    assert done_items[0].status == "Done"                                                                                                                                                                       

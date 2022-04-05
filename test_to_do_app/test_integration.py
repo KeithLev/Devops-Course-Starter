@@ -28,14 +28,8 @@ class StubResponse():
         return self.fake_response_data
 
 def get_lists_stub(url, params):
-    NOT_STARTED_LIST_ID = os.environ.get('NOT_STARTED_LIST_ID')
-    STARTED_LIST_ID = os.environ.get('STARTED_LIST_ID')
-    DONE_LIST_ID = os.environ.get('DONE_LIST_ID')
-    trello_urls = TrelloUrls()
-    payload = trello_urls.auth.copy()
-    payload.update({'fields':['id','name','dateLastActivity']})
     fake_response_data =[
-        {'id':'1','name':'Card 1'}
+        {'id':'1','name':'Card 1', 'dateLastActivity':'2022-02-07T11:34:48:260Z'}
     ]
     return StubResponse(fake_response_data)
 
