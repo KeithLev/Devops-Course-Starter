@@ -63,3 +63,8 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 ## Testing the app
 Run "poetry run pytest"
 You should see 4 tests pass
+
+## Setting up vm using ansible
+Update inventory with VM addresses
+Run "ansible-playbook playbook.yaml -i inventory"
+Enter required params when prompted

@@ -1,0 +1,86 @@
+---
+- name: configure remote vm
+  hosts: Remote
+  remote_user: ec2-user
+  environment: 
+    PATH: /home/ec2-user/.poetry/bin:{{ ansible_env.PATH }}
+
+  vars_prompt:
+    - name: app_token
+      prompt: app_token
+      private: no
+  
+    - name: app_key
+      prompt: app_key
+      private: no
+  
+    - name: not_started_list_id
+      prompt: not_started_list_id
+      private: no
+  
+    - name: started_list_id
+      prompt: started_list_id
+      private: no
+  
+    - name: done_list_id
+      prompt: done_list_id
+      private: no
+
+  tasks:
+  - name: install packages
+    yum:
+      name: 
+        - git
+        - python3
+      state: installed
+    become: yes
+
+  - name: install poetry
+    shell: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
+    args:
+      creates: ~/.poetry/bin/poetry
+
+  - name: create directory for todo app
+    file:
+      path: /home/ec2-user/ToDoApp
+      state: directory
+      owner: ec2-user
+      mode: '777'
+    become: yes
+
+  - name: copy todo app
+    copy:
+      src: /home/ec2-user/Devops-Course-Starter
+      dest: /home/ec2-user/ToDoApp
+    become: yes
+
+  - name: run poetry install
+    shell: poetry install
+    args:
+      chdir: /home/ec2-user/ToDoApp/Devops-Course-Starter
+    become: yes
+  
+  - name: create .env file
+    template:
+      src: /home/ec2-user/Devops-Course-Starter/.env.j2
+      dest: /home/ec2-user/ToDoApp/Devops-Course-Starter/.env
+    become: yes
+
+  - name: copy todoapp.service
+    copy:
+      src: /home/ec2-user/Devops-Course-Starter/todoapp.service
+      dest: /etc/systemd/system/todoapp.service
+    become: yes
+  
+  - name: start service
+    systemd:
+      name: todoapp.service
+      state: started
+      daemon_reload: true
+    become: yes
+
+
+  
+
+
+      
