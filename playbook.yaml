@@ -46,25 +46,21 @@
       state: directory
       owner: ec2-user
       mode: '777'
-    become: yes
 
   - name: copy todo app
     copy:
       src: /home/ec2-user/Devops-Course-Starter
       dest: /home/ec2-user/ToDoApp
-    become: yes
 
   - name: run poetry install
     shell: poetry install
     args:
       chdir: /home/ec2-user/ToDoApp/Devops-Course-Starter
-    become: yes
   
   - name: create .env file
     template:
       src: /home/ec2-user/Devops-Course-Starter/.env.j2
       dest: /home/ec2-user/ToDoApp/Devops-Course-Starter/.env
-    become: yes
 
   - name: copy todoapp.service
     copy:
