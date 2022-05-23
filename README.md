@@ -87,5 +87,5 @@ docker run -p 5000:5000 --env-file .env --mount type=bind,source="$(pwd)"/todo_a
 ## Run Docker Compose
 Ensure .env file is added to base dicetory
 
-Run "docker compose" from the comand line
+Run "docker compose up" from the comand line
 

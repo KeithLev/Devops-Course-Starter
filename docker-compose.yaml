@@ -2,7 +2,7 @@ services:
   dev:
     build:
       context: .
-      target: production
+      target: development
     ports:
       - "5000:5000"
     volumes:
@@ -14,11 +14,9 @@ services:
   prod:
     build:
       context: .
-      target: development
+      target: production
     ports:
       - "8000:5000"
-    volumes:
-      - ./todo_app:/todo-app/todo_app
     env_file:
       - ./.env
 
