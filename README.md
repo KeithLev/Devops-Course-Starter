@@ -68,3 +68,24 @@ You should see 4 tests pass
 Update inventory with VM addresses
 Run "ansible-playbook playbook.yaml -i inventory"
 Enter required params when prompted
+
+## Running using container
+Ensure .env file is added to base of dicetory
+
+Build the container using the following commands:
+Development:
+docker build --target development --tag todo-app:dev .
+Production:
+docker build --target production --tag todo-app:prod .
+
+Run the containers using the following commands:
+Development:
+docker run -p 5000:5000 --env-file .env --mount type=bind,source="$(pwd)"/todo_app,target=/todo-app/todo_app todo-app:dev
+Production:
+docker run -p 5000:5000 --env-file .env --mount type=bind,source="$(pwd)"/todo_app,target=/todo-app/todo_app todo-app:prod
+
+## Run Docker Compose
+Ensure .env file is added to base dicetory
+
+Run "docker compose up" from the comand line
+
