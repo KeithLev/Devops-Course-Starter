@@ -86,7 +86,7 @@ docker run -p 5000:5000 --env-file .env --mount type=bind,source="$(pwd)"/todo_a
 Production:
 docker run -p 5000:5000 --env-file .env todo-app:pro
 Test:
-docker run -it --env-file .env.test --mount type=bind,source="$(pwd)"/todo_app,target=/todo-app/todo_app todo-app:test
+docker run -it --env-file .env.test todo-app:test
 
 
 ## Run Docker Compose
