@@ -20,4 +20,12 @@ services:
     env_file:
       - ./.env
 
+  test:
+      build:
+        context: .
+        target: test
+      env_file:
+        - ./.env.test
+    
+
     
