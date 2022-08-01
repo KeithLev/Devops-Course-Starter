@@ -1,6 +1,6 @@
 FROM python:3.7-slim-buster AS base
 EXPOSE 5000
-WORKDIR /todo_app
+WORKDIR /todo-app
 RUN apt-get update
 RUN apt-get install -y curl
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
@@ -10,13 +10,13 @@ RUN poetry install
 
 
 FROM base AS production
-COPY ./todo_app /todo-app/todo_app
+COPY ./todo_app ./todo_app/
 CMD [ "poetry", "run", "gunicorn", "--bind", "0.0.0.0:5000", "todo_app.wsgi:app" ]
 
 FROM base AS development
 CMD [ "poetry", "run", "flask", "run", "--host", "0.0.0.0"]
 
 FROM base AS test
-COPY ./todo_app ./
-COPY ./test_to_do_app ./test_to_do_app
+COPY ./todo_app ./todo_app/
+COPY ./test_to_do_app ./test_to_do_app/
 CMD [ "poetry", "run", "pytest"]

@@ -84,7 +84,7 @@ Run the containers using the following commands:
 Development:
 docker run -p 5000:5000 --env-file .env --mount type=bind,source="$(pwd)"/todo_app,target=/todo-app/todo_app todo-app:dev
 Production:
-docker run -p 5000:5000 --env-file .env todo-app:pro
+docker run -p 5000:5000 --env-file .env todo-app:prod
 Test:
 docker run -it --env-file .env.test todo-app:test
 
