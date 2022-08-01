@@ -77,12 +77,17 @@ Development:
 docker build --target development --tag todo-app:dev .
 Production:
 docker build --target production --tag todo-app:prod .
+Test:
+docker build --target test --tag todo-app:test .
 
 Run the containers using the following commands:
 Development:
 docker run -p 5000:5000 --env-file .env --mount type=bind,source="$(pwd)"/todo_app,target=/todo-app/todo_app todo-app:dev
 Production:
-docker run -p 5000:5000 --env-file .env --mount type=bind,source="$(pwd)"/todo_app,target=/todo-app/todo_app todo-app:prod
+docker run -p 5000:5000 --env-file .env todo-app:prod
+Test:
+docker run -it --env-file .env.test todo-app:test
+
 
 ## Run Docker Compose
 Ensure .env file is added to base dicetory
