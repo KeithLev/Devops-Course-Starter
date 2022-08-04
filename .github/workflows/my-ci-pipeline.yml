@@ -14,5 +14,6 @@ jobs:
   runs-on: ubuntu-latest
   if: github.event_name == 'push' && github.ref == 'refs/heads/Module8'
   steps:
-  - run: docker login -u keithleverton -p {DOCKERPASSWORD}
+   - run: docker login -u keithleverton -p ${{secrets.DOCKERPASSWORD}}
+
 
