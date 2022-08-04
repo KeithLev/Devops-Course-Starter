@@ -4,13 +4,14 @@ from todo_app.data.to_do_list import to_do_list
 from todo_app.data.trello_urls import TrelloUrls
 from todo_app.flask_config import Config
 from todo_app.data.item_view_model import ViewModel
+import os
 
 
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config())
-    trello_url = TrelloUrls()
+    trello_url = TrelloUrls(os.getenv('BOARD_ID'))
     to_do_list_local = to_do_list(trello_url)
 
     @app.route('/')

@@ -1,32 +1,31 @@
 from datetime import datetime
-from todo_app.data.trello_urls import TrelloUrls
+from todo_app.data.updateCard import UpdateCard
 import requests
 class Card:
-    def __init__(self,id, name, status, lastActivity = datetime.today()):
-        self.trello_urls = TrelloUrls()
+    def __init__(self,id, name, status, TrelloUrls, lastActivity = datetime.today()):
+        self.trello_urls = TrelloUrls
         self.id = id
-        self.name = name
-        self.status = status
-        self.lastActivity = lastActivity
+        self._name = name
+        self._status = status
+        self._lastActivity = lastActivity
+        self.updateCard = UpdateCard(TrelloUrls)
         
     @property
     def name(self):
-        return self._name  
+        return self._name 
     
     @name.setter
-    def  name(self, name):
-        self._name = name
-        payload = self.trello_urls.auth.copy()
-        payload.update({'name':name})
-        requests.post(self.trello_urls.base_url+self.trello_urls.cards+self.id,payload)
+    def  name(self, value):
+        self._name = value
+        self.updateCard.updateName(self.id, self._name)
     
     @property
     def lastActivity(self):
         return self._lastActivity
     
     @lastActivity.setter
-    def lastActivity(self, lastAcitivity):
-        self._lastActivity = lastAcitivity
+    def lastActivity(self, value):
+        self._lastActivity = value
         
     
     @property
@@ -34,17 +33,9 @@ class Card:
         return self._status
     
     @status.setter
-    def status(self, status):
-        self._status = status
-        if (status == 'Not Started'):
-            list_id = self.trello_urls.not_started_list_id
-        if (status == 'Started'):
-            list_id = self.trello_urls.started_list_id
-        if (status == 'Done'):
-            list_id = self.trello_urls.done_list_id
-        payload = self.trello_urls.auth.copy()
-        payload.update({'idList':list_id})
-        requests.put(self.trello_urls.base_url+self.trello_urls.cards+self.id,payload)
+    def status(self, value):
+        self._status = value
+        self.updateCard.updateStatus(self.id, self._status)
         
 
 

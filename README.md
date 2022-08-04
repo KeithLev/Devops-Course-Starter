@@ -35,9 +35,7 @@ The `.env` file is used by flask to set environment variables when running `flas
 Set enviroment variables as follows:
 App_TOKEN - app token
 APP_KEY - app key
-NOT_STARTED_LIST_ID - list id for not started list
-STARTED_LIST_ID - list id for started list
-DONE_LIST_ID - list id for done list
+BOARD_ID - trello board id
 
 
 
