@@ -12,10 +12,10 @@ jobs:
   name: deploy
   needs: build
   on:
-   push:
-    branches:
-    - main
-    - 'Module8'
+    push:
+      branches:
+       - main
+       - 'Module8'
   steps:
   - run: echo 'cd'
 
