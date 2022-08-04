@@ -11,9 +11,9 @@ jobs:
  deploy:
   on:
    push:
-     branches:
-      - main
-      - 'Module8'
+    branches:
+    - main
+    - 'Module8'
   name: deploy
   needs: build
 
