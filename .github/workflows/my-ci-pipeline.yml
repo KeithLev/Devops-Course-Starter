@@ -14,7 +14,7 @@ jobs:
     branches:
     - main
     - 'Module8'
- needs: Build and test
+ needs: build
  jobs:
   - run: echo 'cd'
 
