@@ -2,8 +2,6 @@ import pytest
 from dotenv import load_dotenv,find_dotenv
 from todo_app import app
 import requests
-from todo_app.data.trello_urls import TrelloUrls
-import os
 
 @pytest.fixture
 def client(monkeypatch):
@@ -28,10 +26,16 @@ class StubResponse():
         return self.fake_response_data
 
 def get_lists_stub(url, params):
-    fake_response_data =[
-        {'id':'1','name':'Card 1', 'dateLastActivity':'2022-02-07T11:34:48:260Z'}
-    ]
+    if url == 'https://api.trello.com/1/boards/6/lists':
+        fake_response_data = [{'id':'6','name':'To Do'},{'id':'6','name':'Doing'},{'id':'6','name':'Done'}]
+    else:
+        fake_response_data =[
+            {'id':'1','name':'Card 1', 'dateLastActivity':'2022-02-07T11:34:48:260Z'}
+        ]
+
     return StubResponse(fake_response_data)
+
+
 
 
 

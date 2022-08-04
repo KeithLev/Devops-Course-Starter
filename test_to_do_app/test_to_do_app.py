@@ -2,21 +2,24 @@ from datetime import datetime,timedelta
 import pytest
 from todo_app.data.Card import Card
 from todo_app.data.item_view_model import ViewModel
+from todo_app.data.trello_urls import TrelloUrls
 
 @pytest.fixture
 def setup():
-    item1 = Card("1","item1","Not Started")
-    item2 = Card("2","item2","Started")
-    item3 = Card("3","item3", "Done")
+    trelloUrls = TrelloUrls('1')
+    item1 = Card("1","item1","Not Started",trelloUrls)
+    item2 = Card("2","item2","Started",trelloUrls)
+    item3 = Card("3","item3", "Done",trelloUrls)
     return [item1,item2,item3]
 
 @pytest.fixture
-def setup_recently_done():   
-    item4 = Card("4","item4", "Done")
-    item5 = Card("5","item5", "Done")
-    item6 = Card("6","item6", "Done")
-    item7 = Card("7","item7", "Done", lastActivity=(datetime.today()- timedelta(days=1)))
-    item8 = Card("8","item8", "Done", lastActivity=(datetime.today()- timedelta(days=1)))
+def setup_recently_done(): 
+    trelloUrls = TrelloUrls('')
+    item4 = Card("4","item4", "Done", trelloUrls)
+    item5 = Card("5","item5", "Done",trelloUrls)
+    item6 = Card("6","item6", "Done",trelloUrls)
+    item7 = Card("7","item7", "Done", trelloUrls, lastActivity=(datetime.today()- timedelta(days=1)))
+    item8 = Card("8","item8", "Done", trelloUrls, lastActivity=(datetime.today()- timedelta(days=1)))
     return [item4, item5, item6, item7, item8]
 
         

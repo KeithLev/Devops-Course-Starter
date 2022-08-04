@@ -15,15 +15,15 @@ class to_do_list():
 
         self.cards = {}
         for item in self.not_started:
-            card = Card(item['id'],item['name'],'Not Started')
+            card = Card(item['id'],item['name'],'Not Started', self.trello_urls)
             self.cards.update({card.id:card})
 
         for item in self.started:
-            card = Card(item['id'],item['name'],'Started')
+            card = Card(item['id'],item['name'],'Started', self.trello_urls)
             self.cards.update({card.id:card})
         
         for item in self.done:
-            card = Card(item['id'], item['name'],'Done', lastActivity=datetime.fromisoformat(item['dateLastActivity'][:-1] + '+00:00'))
+            card = Card(item['id'], item['name'],'Done', self.trello_urls, lastActivity=datetime.fromisoformat(item['dateLastActivity'][:-1] + '+00:00'))
             self.cards.update({card.id:card})
         
 
@@ -34,7 +34,7 @@ class to_do_list():
         payload = self.trello_urls.auth.copy()
         payload.update({'idList':self.trello_urls.not_started_list_id,'name':title})
         item = requests.post(self.trello_urls.base_url+self.trello_urls.cards,payload).json()
-        card = Card(item['id'],title,'Not Started')
+        card = Card(item['id'],title,'Not Started',self.trello_urls)
         self.cards.update({card.id:card})
 
     def return_card(self, id):
