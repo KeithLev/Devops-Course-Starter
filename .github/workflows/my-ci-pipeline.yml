@@ -12,7 +12,7 @@ jobs:
   name: deploy
   needs: build
   on:
-  push:
+   push:
     branches:
     - main
     - 'Module8'
