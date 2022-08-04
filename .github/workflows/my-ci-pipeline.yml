@@ -16,7 +16,7 @@ jobs:
   steps:
    - uses: actions/checkout@v2
    - run: docker login -u keithleverton -p ${{secrets.DOCKERPASSWORD}}
-   - run: docker build --target prod --tag todo-app:latest .
+   - run: docker build --target production --tag todo-app:$GITHUB_SHA .
    - run: docker push --tag todo-app:latest
 
 
