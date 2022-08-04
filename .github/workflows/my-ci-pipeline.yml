@@ -8,3 +8,13 @@ jobs:
   - uses: actions/checkout@v2 
   - run: docker build --target test --tag todo-app:test .
   - run: docker run --env-file ./.env.test todo-app:test
+
+name: Continuous Deployment
+on:
+  push:
+    brachnes:
+    - main
+    - 'Module8'
+needs: Continuous Intergration
+jobs:
+  - run: echo 'CD'
