@@ -14,6 +14,7 @@ jobs:
   runs-on: ubuntu-latest
   if: github.event_name == 'push' && github.ref == 'refs/heads/Module8'
   steps:
+   - uses: actions/checkout@v2
    - run: docker login -u keithleverton -p ${{secrets.DOCKERPASSWORD}}
    - run: docker build --target prod --tag todo-app:latest .
    - run: docker push --tag todo-app:latest
