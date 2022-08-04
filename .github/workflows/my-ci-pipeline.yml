@@ -15,7 +15,7 @@ jobs:
   if: github.event_name == 'push' && github.ref == 'refs/heads/Module8'
   steps:
    - run: docker login -u keithleverton -p ${{secrets.DOCKERPASSWORD}}
-   - run: docker build --target production --tag todo-app:$GITHUB_SHA .
-   - run: docker push --tag todo-app:$GITHUB_SHA
+   - run: docker build --target production --tag todo-app:latest.
+   - run: docker push --tag todo-app:latest
 
 
