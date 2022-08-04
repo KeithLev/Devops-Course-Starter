@@ -9,11 +9,7 @@ jobs:
   - run: docker build --target test --tag todo-app:test .
   - run: docker run --env-file ./.env.test todo-app:test
  deploy:
-  on:
-   push:
-    branches:
-    - main
-    - 'Module8'
+  if: github.push && github.Module8
   name: deploy
   needs: build
 
