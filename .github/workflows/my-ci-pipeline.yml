@@ -9,13 +9,14 @@ jobs:
   - run: docker build --target test --tag todo-app:test .
   - run: docker run --env-file ./.env.test todo-app:test
  deploy:
+  on:
+   push:
+     branches:
+      - main
+      - 'Module8'
   name: deploy
   needs: build
-  on:
-    push:
-      branches:
-       - main
-       - 'Module8'
+
   steps:
   - run: echo 'cd'
 
