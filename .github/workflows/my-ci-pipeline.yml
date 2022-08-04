@@ -10,9 +10,9 @@ jobs:
   - run: docker run --env-file ./.env.test todo-app:test
  deploy:
   name: deploy
-  needs: 'build'
+  needs: build
   runs-on: ubuntu-latest
-  if: github.event_name == 'push' && github.ref.name == 'Module8'
+  if: github.event_name == 'push' 
   steps:
   - run: echo 'cd'
 
