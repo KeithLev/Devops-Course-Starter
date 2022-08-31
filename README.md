@@ -92,6 +92,6 @@ Ensure .env file is added to base dicetory
 
 Run "docker compose up" from the comand line
 
-## Heroku link
-https://to-do-app-kl.herokuapp.com/
+## Azure Link
+https://to-do-app-kl.azurewebsites.net/
 
