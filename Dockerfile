@@ -11,6 +11,7 @@ RUN poetry config virtualenvs.create false --local && poetry install
 
 FROM base AS production
 COPY ./todo_app ./todo_app/
+ENV PORT=5000
 CMD poetry run gunicorn "todo_app.app:create_app()" --bind 0.0.0.0:$PORT
 
 FROM base AS development
