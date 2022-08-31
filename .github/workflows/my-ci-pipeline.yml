@@ -2,9 +2,29 @@ name: Continuous Integration
 on: [push] 
 jobs: 
  build: 
-  name: Build and test 
+  name: build
   runs-on: ubuntu-latest 
   steps: 
   - uses: actions/checkout@v2 
   - run: docker build --target test --tag todo-app:test .
   - run: docker run --env-file ./.env.test todo-app:test
+ deploy:
+  name: deploy
+  needs: build
+  runs-on: ubuntu-latest
+  if: github.event_name == 'push' && github.ref == 'refs/heads/Main'
+  env:
+      HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}} 
+  steps:
+   - uses: actions/checkout@v2
+   - run: docker login -u keithleverton -p ${{secrets.DOCKERPASSWORD}}
+   - run: docker build --target production --tag keithleverton/todo-app:$GITHUB_SHA . --tag keithleverton/todo-app .
+   - run: docker push keithleverton/todo-app:$GITHUB_SHA
+   - run: docker push keithleverton/todo-app
+   - run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+   - run: heroku container:login 
+   - run: docker tag keithleverton/todo-app:$GITHUB_SHA registry.heroku.com/to-do-app-kl/web 
+   - run: docker push registry.heroku.com/to-do-app-kl/web 
+   - run: heroku container:release web -a to-do-app-kl
+
+

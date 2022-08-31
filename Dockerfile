@@ -3,15 +3,16 @@ EXPOSE 5000
 WORKDIR /todo-app
 RUN apt-get update
 RUN apt-get install -y curl
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python - --version 1.1.15
 ENV PATH="${PATH}:/root/.poetry/bin"
 COPY ./poetry.toml ./pyproject.toml poetry.lock ./ 
-RUN poetry install
+RUN poetry config virtualenvs.create false --local && poetry install
 
 
 FROM base AS production
 COPY ./todo_app ./todo_app/
-CMD [ "poetry", "run", "gunicorn", "--bind", "0.0.0.0:5000", "todo_app.wsgi:app" ]
+ENV PORT=5000
+CMD poetry run gunicorn "todo_app.app:create_app()" --bind 0.0.0.0:$PORT
 
 FROM base AS development
 CMD [ "poetry", "run", "flask", "run", "--host", "0.0.0.0"]
