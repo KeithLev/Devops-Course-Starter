@@ -19,7 +19,7 @@ jobs:
    - run: docker build --target production --tag keithleverton/todo-app:$GITHUB_SHA --tag keithleverton/todo-app .
    - run: docker push keithleverton/todo-app:$GITHUB_SHA
    - run: docker push keithleverton/todo-app
-   - run: curl -dH -X post ${{secrets.Webhook}}
+   - run: curl -dH --fail -X post ${{secrets.Webhook}}
 
 
 
