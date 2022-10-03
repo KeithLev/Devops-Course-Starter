@@ -2,7 +2,6 @@ from datetime import datetime,timedelta
 import pytest
 from todo_app.data.Card import Card
 from todo_app.data.item_view_model import ViewModel
-from todo_app.data.trello_urls import TrelloUrls
 
 @pytest.fixture
 def setup():
