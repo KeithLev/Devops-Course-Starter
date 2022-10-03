@@ -8,7 +8,7 @@ class Card:
         self._lastActivity = lastActivity
     
     def updateCard(self):
-        self.lastActivity = datetime.today()
+        self._lastActivity = datetime.today()
         self.mongoDB.update_card(self.id, self._name, self._status, self._lastActivity)
 
     @property
