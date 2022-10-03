@@ -1,40 +1,24 @@
 from datetime import datetime
-import requests
 from todo_app.data.Card import Card
 
 
 class to_do_list():
 
-    def __init__(self, trello_urls):
-        self.trello_urls = trello_urls
-        payload = self.trello_urls.auth
-        payload.update({'fields':['id','name','dateLastActivity']})
-        self.not_started = requests.get(self.trello_urls.base_url+self.trello_urls.lists+self.trello_urls.not_started_list_id+'/'+self.trello_urls.cards,payload).json()
-        self.started = requests.get(url = self.trello_urls.base_url+self.trello_urls.lists+self.trello_urls.started_list_id+'/'+self.trello_urls.cards, params = payload).json()
-        self.done = requests.get(url=self.trello_urls.base_url+self.trello_urls.lists+self.trello_urls.done_list_id+'/'+self.trello_urls.cards, params = payload).json()
-
+    def __init__(self, mongoDB):
+        self.mongoDB = mongoDB
         self.cards = {}
-        for item in self.not_started:
-            card = Card(item['id'],item['name'],'Not Started', self.trello_urls)
-            self.cards.update({card.id:card})
-
-        for item in self.started:
-            card = Card(item['id'],item['name'],'Started', self.trello_urls)
+        items = self.mongoDB.return_cards()
+        for item in items:
+            card = Card(str(item['_id']), item['Name'], item['Status'], self.mongoDB, item['LastActivity'])
             self.cards.update({card.id:card})
         
-        for item in self.done:
-            card = Card(item['id'], item['name'],'Done', self.trello_urls, lastActivity=datetime.fromisoformat(item['dateLastActivity'][:-1] + '+00:00'))
-            self.cards.update({card.id:card})
-        
-
     def return_list(self):
         return self.cards.values()
 
     def add_card(self, title):
-        payload = self.trello_urls.auth.copy()
-        payload.update({'idList':self.trello_urls.not_started_list_id,'name':title})
-        item = requests.post(self.trello_urls.base_url+self.trello_urls.cards,payload).json()
-        card = Card(item['id'],title,'Not Started',self.trello_urls)
+        lastUpdated = datetime.today()
+        result = self.mongoDB.add_card(title, "Not Started", lastUpdated)
+        card = Card(result,title,'Not Started', lastUpdated)
         self.cards.update({card.id:card})
 
     def return_card(self, id):
@@ -49,6 +33,4 @@ class to_do_list():
 
     def delete_item(self, id):
         self.cards.pop(id)
-        payload = self.trello_urls.auth.copy()
-        payload.update({'id':id})
-        requests.delete(self.trello_urls.base_url+self.trello_urls.cards+id, params=payload)
+        self.mongoDB.delete_card(id)

@@ -1,15 +1,16 @@
 from datetime import datetime
-from todo_app.data.updateCard import UpdateCard
-import requests
 class Card:
-    def __init__(self,id, name, status, TrelloUrls, lastActivity = datetime.today()):
-        self.trello_urls = TrelloUrls
+    def __init__(self,id, name, status, mongoDB, lastActivity = datetime.today()):
+        self.mongoDB = mongoDB
         self.id = id
         self._name = name
         self._status = status
         self._lastActivity = lastActivity
-        self.updateCard = UpdateCard(TrelloUrls)
-        
+    
+    def updateCard(self):
+        self.lastActivity = datetime.today()
+        self.mongoDB.update_card(self.id, self._name, self._status, self._lastActivity)
+
     @property
     def name(self):
         return self._name 
@@ -17,7 +18,8 @@ class Card:
     @name.setter
     def  name(self, value):
         self._name = value
-        self.updateCard.updateName(self.id, self._name)
+        self.updateCard()
+        
     
     @property
     def lastActivity(self):
@@ -27,7 +29,7 @@ class Card:
     def lastActivity(self, value):
         self._lastActivity = value
         
-    
+        
     @property
     def status(self):
         return self._status
@@ -35,7 +37,7 @@ class Card:
     @status.setter
     def status(self, value):
         self._status = value
-        self.updateCard.updateStatus(self.id, self._status)
+        self.updateCard()
         
 
 
