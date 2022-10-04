@@ -1,4 +1,6 @@
 from datetime import datetime
+
+
 class Card:
     def __init__(self,id, name, status, mongoDB, lastActivity = datetime.today()):
         self.mongoDB = mongoDB
@@ -8,7 +10,8 @@ class Card:
         self._lastActivity = lastActivity
     
     def updateCard(self):
-        self._lastActivity = datetime.today()
+        today = datetime.today()
+        self.lastActivity = today
         self.mongoDB.update_card(self.id, self._name, self._status, self._lastActivity)
 
     @property

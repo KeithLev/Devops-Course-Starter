@@ -18,7 +18,7 @@ class to_do_list():
     def add_card(self, title):
         lastUpdated = datetime.today()
         result = self.mongoDB.add_card(title, "Not Started", lastUpdated)
-        card = Card(result,title,'Not Started', lastUpdated)
+        card = Card(result,title,'Not Started', self.mongoDB, lastUpdated)
         self.cards.update({card.id:card})
 
     def return_card(self, id):
