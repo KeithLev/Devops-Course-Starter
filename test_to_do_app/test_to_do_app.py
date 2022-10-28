@@ -7,19 +7,19 @@ from todo_app.data.mongoDB import MongoDB
 @pytest.fixture
 def setup():
     mongoDB = MongoDB()
-    item1 = Card("1","item1","Not Started", mongoDB)
-    item2 = Card("2","item2","Started",mongoDB)
-    item3 = Card("3","item3", "Done",mongoDB)
+    item1 = Card("1","item1","Not Started")
+    item2 = Card("2","item2","Started")
+    item3 = Card("3","item3", "Done")
     return [item1,item2,item3]
 
 @pytest.fixture
 def setup_recently_done(): 
     mongoDB = MongoDB()
-    item4 = Card("4","item4", "Done", mongoDB)
-    item5 = Card("5","item5", "Done",mongoDB)
-    item6 = Card("6","item6", "Done",mongoDB)
-    item7 = Card("7","item7", "Done", mongoDB, lastActivity=(datetime.today()- timedelta(days=1)))
-    item8 = Card("8","item8", "Done", mongoDB, lastActivity=(datetime.today()- timedelta(days=1)))
+    item4 = Card("4","item4", "Done")
+    item5 = Card("5","item5", "Done")
+    item6 = Card("6","item6", "Done")
+    item7 = Card("7","item7", "Done", lastActivity=(datetime.today()- timedelta(days=1)))
+    item8 = Card("8","item8", "Done", lastActivity=(datetime.today()- timedelta(days=1)))
     return [item4, item5, item6, item7, item8]
 
         

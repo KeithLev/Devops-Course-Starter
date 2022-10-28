@@ -9,7 +9,7 @@ class to_do_list():
         self.cards = {}
         items = self.mongoDB.return_cards()
         for item in items:
-            card = Card(str(item['_id']), item['Name'], item['Status'], self.mongoDB, item['LastActivity'])
+            card = Card(str(item['_id']), item['Name'], item['Status'], item['LastActivity'])
             self.cards.update({card.id:card})
         
     def return_list(self):
@@ -18,7 +18,7 @@ class to_do_list():
     def add_card(self, title):
         lastUpdated = datetime.today()
         result = self.mongoDB.add_card(title, "Not Started", lastUpdated)
-        card = Card(result,title,'Not Started', self.mongoDB, lastUpdated)
+        card = Card(result,title,'Not Started', lastUpdated)
         self.cards.update({card.id:card})
 
     def return_card(self, id):
@@ -30,6 +30,7 @@ class to_do_list():
             card.name = name
         if card.status != status:
             card.status = status
+        self.mongoDB.update_card(card.id, card.name, card.status, card.lastActivity)
 
     def delete_item(self, id):
         self.cards.pop(id)
