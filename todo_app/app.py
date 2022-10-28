@@ -1,7 +1,7 @@
 from flask import Flask, render_template,request
 from werkzeug.utils import redirect
 from todo_app.data.to_do_list import to_do_list
-from todo_app.data.trello_urls import TrelloUrls
+from todo_app.data.mongoDB import MongoDB
 from todo_app.flask_config import Config
 from todo_app.data.item_view_model import ViewModel
 import os
@@ -11,8 +11,8 @@ import os
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config())
-    trello_url = TrelloUrls(os.getenv('BOARD_ID'))
-    to_do_list_local = to_do_list(trello_url)
+    mongoDB = MongoDB()
+    to_do_list_local = to_do_list(mongoDB)
 
     @app.route('/')
     def index():
