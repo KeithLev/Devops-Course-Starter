@@ -23,12 +23,14 @@
         <h2>Items</h2>
       </div>
       <div class="collumn">
+        {% if role=='Read/Write'%}
         <form action="/add_item" method="post">
           <div>
             <input type="text" name="title" id="title" placeholder="Add new item" required>
             <input type="submit" value="Submit!">
           </div>
         </form>
+        {% endif %}
       </div>
     </div>
     <div class="row">

@@ -50,7 +50,7 @@ def create_app():
     @login_required
     def index():
         list = ViewModel(to_do_list_local.return_list())
-        if os.getenv('LOGIN_DISABLED'):
+        if os.getenv('LOGIN_DISABLED') == 'Ture':
             role = 'Read/Write'
         else: role = current_user.role
         return render_template('index.html', lists = list, role = role)
