@@ -12,7 +12,7 @@ jobs:
   name: deploy
   needs: build
   runs-on: ubuntu-latest
-  if: github.event_name == 'push'
+  if: github.event_name == 'push' && github.ref == 'refs/heads/Main'
   steps:
    - uses: actions/checkout@v2
    - run: docker login -u keithleverton -p ${{secrets.DOCKERPASSWORD}}
