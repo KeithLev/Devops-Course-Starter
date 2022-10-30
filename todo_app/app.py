@@ -50,7 +50,10 @@ def create_app():
     @login_required
     def index():
         list = ViewModel(to_do_list_local.return_list())
-        return render_template('index.html', lists = list, role = current_user.role)
+        if os.getenv('LOGIN_DISABLED'):
+            role = 'Read/Write'
+        else: role = current_user.role
+        return render_template('index.html', lists = list, role = role)
 
     @app.route('/add_item', methods=['POST'])
     @login_required
