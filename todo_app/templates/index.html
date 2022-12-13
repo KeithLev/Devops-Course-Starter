@@ -23,12 +23,14 @@
         <h2>Items</h2>
       </div>
       <div class="collumn">
+        {% if role=='Read/Write'%}
         <form action="/add_item" method="post">
           <div>
             <input type="text" name="title" id="title" placeholder="Add new item" required>
             <input type="submit" value="Submit!">
           </div>
         </form>
+        {% endif %}
       </div>
     </div>
     <div class="row">
@@ -38,7 +40,8 @@
         {% for to_do in lists.to_do_items%}
         <ul class="list-group mb-4">
           <li>
-            <h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>
+            {% if role=='Read/Write'%}<h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>{% endif %}
+            {% if role == 'Read' %}<h3>{{to_do.name}}</h3>{% endif %}
           </li>
         </ul>
         {% endfor %}
@@ -48,7 +51,8 @@
         {% for to_do in lists.doing_items%}
         <ul class="list-group mb-4">
           <li>
-            <h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>
+            {% if role=='Read/Write'%}<h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>{% endif %}
+            {% if role == 'Read' %}<h3>{{to_do.name}}</h3>{% endif %}
           </li>
         </ul>
         {% endfor %}
@@ -60,7 +64,8 @@
           {% for to_do in lists.done_items%}
           <ul class="list-group mb-4">
             <li>
-              <h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>
+              {% if role=='Read/Write'%}<h3><a href="/to_do/{{to_do.id}}"> {{to_do.name}}</a></h3>{% endif %}
+              {% if role == 'Read' %}<h3>{{to_do.name}}</h3>{% endif %}
             </li>
           </ul>
           {% endfor %}
