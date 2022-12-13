@@ -4,8 +4,8 @@ import os
 
 def ReadWriteNeeded(func):
     def wrapper(*args, **kwargs):
-        if current_user.role == 'Read/Write' or os.getenv('LOGIN_DISABLED') == 'True':
+        if os.getenv('LOGIN_DISABLED') == 'True' or current_user.role == 'Read/Write':
             return func(*args, **kwargs)
-        else: return redirect('/')
+        else: return "Not authorised", 401
     wrapper.__name__ = func.__name__
     return wrapper
