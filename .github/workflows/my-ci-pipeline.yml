@@ -23,7 +23,7 @@ jobs:
   steps:
    - uses: actions/checkout@v2
    - run: terraform init -input=false
-   - run: terraform apply -var 'prefix=test' -auto-approve
+   - run: terraform apply -var 'prefix=test' -var 'GIT_HUB_CLIENT_ID=${{secrets.GIT_HUB_CLIENT_ID}}' -var 'GIT_HUB_SECRET=${{secrets.GIT_HUB_SECRET}}' -auto-approve
 
 
  deploy:
