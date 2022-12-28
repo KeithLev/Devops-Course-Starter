@@ -96,3 +96,7 @@ Run "docker compose up" from the comand line
 ## Azure Link
 https://to-do-app-kl.azurewebsites.net/
 
+https://test-terratodoappkl.azurewebsites.net
+
+
+
