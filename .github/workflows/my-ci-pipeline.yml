@@ -23,7 +23,7 @@ jobs:
   steps:
    - uses: actions/checkout@v2
    - run: terraform init -input=false
-   - run: terraform apply -input=false tfplan -var 'prefix=test' -auto-approve
+   - run: terraform apply -var 'prefix=test' -auto-approve
 
 
  deploy:
