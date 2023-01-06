@@ -93,8 +93,19 @@ Ensure .env file is added to base dicetory
 
 Run "docker compose up" from the comand line
 
+## Run Terraform locally
+Run "terraform init"
+
+The following variable will either need to be added using -var tag or in a .tfvars file:
+GIT_HUB_CLIENT_ID
+GIT_HUB_SECRET
+prefix
+
+See variables.tf for optional variables.
+
+Run "terraform apply"
+
 ## Azure Link
-https://to-do-app-kl.azurewebsites.net/
 
 https://test-terratodoappkl.azurewebsites.net
 
