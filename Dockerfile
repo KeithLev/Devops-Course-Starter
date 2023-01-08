@@ -3,8 +3,7 @@ EXPOSE 5000
 WORKDIR /todo-app
 RUN apt-get update
 RUN apt-get install -y curl
-RUN curl -sSL https://install.python-poetry.org | python - --version 1.1.15
-ENV PATH="${PATH}:/root/.poetry/bin"
+RUN pip install "poetry==1.1.15"
 COPY ./poetry.toml ./pyproject.toml poetry.lock ./ 
 RUN poetry config virtualenvs.create false --local && poetry install
 
