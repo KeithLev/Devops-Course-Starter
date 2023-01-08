@@ -8,18 +8,27 @@ jobs:
   - uses: actions/checkout@v2 
   - run: docker build --target test --tag todo-app:test .
   - run: docker run --env-file ./.env.test todo-app:test
+  
+
  deploy:
   name: deploy
+  env:
+    ARM_TENANT_ID: ${{secrets.ARM_TENANT_ID}}
+    ARM_CLIENT_ID: ${{secrets.ARM_CLIENT_ID}}
+    ARM_CLIENT_SECRET: ${{secrets.ARM_CLIENT_SECRET}}
+    ARM_SUBSCRIPTION_ID: ${{secrets.ARM_SUBSCRIPTION_ID}}
   needs: build
   runs-on: ubuntu-latest
   if: github.event_name == 'push'
   steps:
    - uses: actions/checkout@v2
+   - run: terraform init -input=false
+   - run: terraform apply -var 'prefix=test' -var 'GIT_HUB_CLIENT_ID=${{secrets.GIT_HUB_CLIENT_ID}}' -var 'GIT_HUB_SECRET=${{secrets.GIT_HUB_SECRET}}' -auto-approve
    - run: docker login -u keithleverton -p ${{secrets.DOCKERPASSWORD}}
    - run: docker build --target production --tag keithleverton/todo-app:$GITHUB_SHA --tag keithleverton/todo-app .
    - run: docker push keithleverton/todo-app:$GITHUB_SHA
    - run: docker push keithleverton/todo-app
-   - run: curl -dH --fail -X post ${{secrets.Webhook}}
+   - run: curl -dH --fail -X post "$(terraform output -raw cd_webhook)"
 
 
 
