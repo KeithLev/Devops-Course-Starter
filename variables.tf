@@ -21,3 +21,11 @@ variable "GIT_HUB_SECRET"{
 variable "LOGIN_DISABLED"{
     default = "false"
 }
+
+variable "LOG_LEVEL"{
+    default = "DEBUG"
+}
+
+variable "LOGGLY_TOKEN"{
+    sensitive = true
+}

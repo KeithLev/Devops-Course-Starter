@@ -54,6 +54,8 @@ resource "azurerm_linux_web_app" "main" {
         "LOGIN_DISABLED" = var.LOGIN_DISABLED
         "SECRET_KEY" = "secret_key"
         "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
+        "LOG_LEVEL" = var.LOG_LEVEL
+        "LOGGLY_TOKEN" = var.LOGGLY_TOKEN
 
 
 
