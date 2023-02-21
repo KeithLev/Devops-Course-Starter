@@ -4,15 +4,19 @@ import os
 from bson.objectid import ObjectId
 import flask_login
 
+
 class MongoDB:
 
     def __init__(self):
+
         self.to_do_client = pymongo.MongoClient(os.getenv('MONGODB_PRIMARY_KEY'))
         self.to_do_db = self.to_do_client.to_do_db
         self.to_do_collection = self.to_do_db.to_do_collection
+
     
     def return_object_id(self, _id):
-        return ObjectId(_id)
+        id = ObjectId(_id)
+        return id
 
 
     def return_cards(self):
@@ -35,10 +39,10 @@ class MongoDB:
             "Status": status,
             "LastActivity": lastActivity
             }}
-        self.to_do_collection.update_one({"_id":self.return_object_id(_id)},updated_card)
+        result = self.to_do_collection.update_one({"_id":self.return_object_id(_id)},updated_card)
 
     def delete_card(self, _id):
         myquery = {'_id':self.return_object_id(_id)}
-        self.to_do_collection.delete_one(myquery)
+        result = self.to_do_collection.delete_one(myquery)
 
 

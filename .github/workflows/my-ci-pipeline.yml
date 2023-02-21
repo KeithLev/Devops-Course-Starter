@@ -23,7 +23,7 @@ jobs:
   steps:
    - uses: actions/checkout@v2
    - run: terraform init -input=false
-   - run: terraform apply -var 'prefix=test' -var 'GIT_HUB_CLIENT_ID=${{secrets.GIT_HUB_CLIENT_ID}}' -var 'GIT_HUB_SECRET=${{secrets.GIT_HUB_SECRET}}' -auto-approve
+   - run: terraform apply -var 'prefix=test' -var 'GIT_HUB_CLIENT_ID=${{secrets.GIT_HUB_CLIENT_ID}}' -var 'GIT_HUB_SECRET=${{secrets.GIT_HUB_SECRET}}' -var 'LOGGLY_TOKEN=${{secrets.LOGGLY_TOKEN}}' -auto-approve
    - run: docker login -u keithleverton -p ${{secrets.DOCKERPASSWORD}}
    - run: docker build --target production --tag keithleverton/todo-app:$GITHUB_SHA --tag keithleverton/todo-app .
    - run: docker push keithleverton/todo-app:$GITHUB_SHA

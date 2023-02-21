@@ -6,7 +6,6 @@ from todo_app.data.mongoDB import MongoDB
 
 @pytest.fixture
 def setup():
-    mongoDB = MongoDB()
     item1 = Card("1","item1","Not Started")
     item2 = Card("2","item2","Started")
     item3 = Card("3","item3", "Done")
@@ -14,7 +13,6 @@ def setup():
 
 @pytest.fixture
 def setup_recently_done(): 
-    mongoDB = MongoDB()
     item4 = Card("4","item4", "Done")
     item5 = Card("5","item5", "Done")
     item6 = Card("6","item6", "Done")
