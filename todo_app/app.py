@@ -36,7 +36,7 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         user = User(user_id)
-        app.logger.info("User is " + user.role)
+        app.logger.debug("User is " + user.role)
         return user
 
 
@@ -58,7 +58,7 @@ def create_app():
             login_user(user)
             return redirect('/')
         except:
-            app.logger.critical('Unable to log in')
+            app.logger.error('Unable to log in')
         
         
 
@@ -77,7 +77,7 @@ def create_app():
     def add_item(): 
         title = request.form.get('title')
         to_do_list_local.add_card(title)
-        app.logger.info(f"User {current_user.id} added to do item {title}")
+        app.logger.info(f"User {get_id()} added to do item {title}")
         return redirect('/')
 
     @app.route('/to_do/<id>')
@@ -85,7 +85,7 @@ def create_app():
     @ReadWriteNeeded
     def view_item(id):
         to_do = to_do_list_local.return_card(id)
-        app.logger.info(f"User {current_user.id} viewed to do item {to_do.name}")
+        app.logger.info(f"User {get_id()} viewed to do item {to_do.name}")
         return render_template('item.html', to_do = to_do)
 
     @app.route('/update_item/<id>', methods=['PUT','POST'])
@@ -94,7 +94,7 @@ def create_app():
     def update_item(id):
 
         to_do_list_local.update_card(id,request.form.get('title'),request.form.get('status'))
-        app.logger.info(f"User {current_user.id} updated to do item with id {id}")
+        app.logger.info(f"User {get_id()} updated to do item with id {id}")
         return redirect('/')
 
     @app.route('/delete_item/<id>', methods=['POST'])
@@ -102,11 +102,16 @@ def create_app():
     @ReadWriteNeeded
     def delete_item(id):
         to_do_list_local.delete_item(id)
-        app.logger.info(f"User {current_user.id} deleted item with id {id}")
+        app.logger.info(f"User {get_id()} deleted item with id {id}")
         return redirect('/')
 
     return app
 
+    def get_id():
+        if os.getenv('LOGIN_DISABLED') == 'True':
+            return "Anonymous"
+        else:
+            return current_user.id
 
 
 
